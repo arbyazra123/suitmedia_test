@@ -35,14 +35,25 @@ class _SecondPageState extends State<SecondPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             WelcomeUserText(),
-            Expanded(child: SingleChildScrollView(
-              child: BlocBuilder<UserCubit, UserState>(
-                builder: (context, state) {
-                  return SelectedUsers(
-                    users: state.selectedUsers.users,
+            Expanded(child: BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                if (state.selectedUsers.users.length == 0) {
+                  return Center(
+                    child: Text(
+                      "Selected User Name",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 26
+                      ),
+                    ),
                   );
-                },
-              ),
+                }
+                return SingleChildScrollView(
+                  child: SelectedUsers(
+                    users: state.selectedUsers.users,
+                  ),
+                );
+              },
             )),
           ],
         ),
